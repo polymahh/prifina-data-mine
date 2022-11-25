@@ -18,7 +18,7 @@ const DataSources = () => {
   } = useContext(DataContext);
 
   const getDataSources = async () => {
-    const data = await fetchData("http://localhost:8000/api/test");
+    const data = await fetchData("http://localhost:8000/api");
     handleDataSources(data);
   };
 

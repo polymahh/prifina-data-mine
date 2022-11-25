@@ -26,8 +26,11 @@ const notion = new Client({
     auth: notionSecret,
 })
 
-app.get("/api",(req,res)=>{
-    res.send("test")
+app.get("/api", async (req,res)=>{
+    res.status(200)
+    const query = await notion.databases.query({                    
+    database_id: notionDataSourcesId
+    }).then(result => res.json(result.results.map(item=> item.properties)))
 })
 
 app.use(express.static(path.join(__dirname, "./data-mine/build")))
