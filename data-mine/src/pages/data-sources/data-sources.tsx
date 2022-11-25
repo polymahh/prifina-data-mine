@@ -18,7 +18,9 @@ const DataSources = () => {
   } = useContext(DataContext);
 
   const getDataSources = async () => {
-    const data = await fetchData("http://localhost:5000/api/data-sources/");
+    const data = await fetchData(
+      "http://prifina-data-mine.vercel.app/api/data-sources/"
+    );
     handleDataSources(data);
   };
 
