@@ -9,7 +9,7 @@ import axios from "axios";
 const DataConnectors = () => {
   useEffect(() => {
     axios
-      .get("http://prifina-data-mine.vercel.app/api/data-connectors/")
+      .get("https://prifina-data-mine.vercel.app/api/data-connectors/")
       .then((response) => response.data)
       .then((data) => {
         console.log(data);
