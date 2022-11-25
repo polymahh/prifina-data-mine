@@ -26,12 +26,45 @@ const notion = new Client({
     auth: notionSecret,
 })
 
-app.get("/api", async (req,res)=>{
+
+
+// this for dynamically getting data sources
+const dataRouter = express.Router()
+
+dataRouter.get("/", async (req,res)=>{
     res.status(200)
     const query = await notion.databases.query({                    
     database_id: notionDataSourcesId
     }).then(result => res.json(result.results.map(item=> item.properties)))
 })
+    
+    
+
+dataRouter.get("/:id",(req,res) => {
+    console.log(req.url)
+    res.status(200)
+    res.json({result:`data source with id ${req.params.id}`})
+})
+
+app.use("/api/data-sources",dataRouter)
+
+// this for dynamically getting conectors data
+const connectorRouter = express.Router()
+
+connectorRouter.get("/",(req,res) => {
+    console.log(req.url)
+    res.status(200)
+    res.json({result:"sucess connector"})
+})
+connectorRouter.get("/:id",(req,res) => {
+    console.log(req.url)
+    res.status(200)
+    res.json({result:`connecor with id ${req.params.id}`})
+})
+
+app.use("/api/data-connectors",connectorRouter)
+
+
 
 app.use(express.static(path.join(__dirname, "./data-mine/build")))
 
