@@ -8,6 +8,7 @@ const {Client} = require("@notionhq/client")
 const notionSecret = process.env.NOTION_SECRET
 const notionDataSourcesId = process.env.NOTION_DATASOURCES_ID
 const notionDataAttributesId = process.env.NOTION_DATAATTRIBUTES_ID
+const notionAttributesId = process.env.NOTION_ATTRIBUTES_ID
 
 
 
@@ -42,10 +43,12 @@ dataRouter.get("/", async (req,res) => {
     
     
 
-dataRouter.get("/:id",(req,res) => {
+dataRouter.get("/:id",async (req,res) => {
     console.log(req.url)
     res.status(200)
-    res.json({result:`data source with id ${req.params.id}`})
+    const query = await notion.databases.query({                    
+        database_id: notionAttributesId
+        }).then(result => res.json(result.results.map(item=> item.properties)))
 })
 // this for dynamically getting conectors data
 const connectorRouter = express.Router()
