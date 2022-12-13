@@ -24,7 +24,6 @@ const notion = new Client({
 
 const app = express()
 
-// we need to change this for better security
 app.use(cors())
 
 // this for dynamically getting data sources
