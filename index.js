@@ -85,7 +85,7 @@ connectorRouter.get("/:id",(req,res) => {
 
 
 
-app.use("/data-sources",dataRouter)
+app.use("/data-sources" ,cors(),dataRouter)
 app.use("/data-connectors",connectorRouter)
 
 app.listen(8000 , ()=> console.log(`server is running .... `))
