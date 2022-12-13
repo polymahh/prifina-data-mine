@@ -5,6 +5,7 @@ const {Client} = require("@notionhq/client")
 
 
 
+
 const notionSecret = process.env.NOTION_SECRET
 const notionDataSourcesId = process.env.NOTION_DATASOURCES_ID
 const notionDataAttributesId = process.env.NOTION_DATAATTRIBUTES_ID
@@ -22,6 +23,12 @@ const notion = new Client({
 
 
 const app = express()
+
+// we need to change this for better security
+app.use(cors({
+    origin:"*"
+}))
+
 // this for dynamically getting data sources
 const dataRouter = express.Router()
 
@@ -76,10 +83,7 @@ connectorRouter.get("/:id",(req,res) => {
 })
 
 
-// we need to change this for better security
-app.use(cors({
-    origin:"*"
-}))
+
 
 app.use("/data-sources",dataRouter)
 app.use("/data-connectors",connectorRouter)
