@@ -25,9 +25,7 @@ const notion = new Client({
 const app = express()
 
 // we need to change this for better security
-app.use(cors({
-    origin:"*"
-}))
+app.use(cors())
 
 // this for dynamically getting data sources
 const dataRouter = express.Router()
@@ -85,7 +83,7 @@ connectorRouter.get("/:id",(req,res) => {
 
 
 
-app.use("/data-sources" ,cors({origin:"*"}),dataRouter)
+app.use("/data-sources" ,dataRouter)
 app.use("/data-connectors",connectorRouter)
 
 app.listen(8000 , ()=> console.log(`server is running .... `))
