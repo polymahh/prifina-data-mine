@@ -9,8 +9,6 @@ const notionSecret = process.env.NOTION_SECRET
 const notionDataSourcesId = process.env.NOTION_DATASOURCES_ID
 const notionDataAttributesId = process.env.NOTION_DATAATTRIBUTES_ID
 const notionAttributesId = process.env.NOTION_ATTRIBUTES_ID
-const notionId = "8099e1b7-fad8-4a16-ba5c-72fb400d243b"
-const notionproprety ="b1ea5570a0c14efb8436779ccd95f867"
 
 
 
