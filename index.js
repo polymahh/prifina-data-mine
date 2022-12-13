@@ -44,7 +44,7 @@ dataRouter.get("/", async (req,res) => {
     
 
 dataRouter.get("/:id",async (req,res) => {
-    console.log(req.query.source)
+    console.log(req.params.id)
     res.status(200)
     const query = await notion.databases.query({                    
         database_id: notionAttributesId,
@@ -53,7 +53,7 @@ dataRouter.get("/:id",async (req,res) => {
             rollup: {
                 any:{
                     "relation":{
-                        "contains":req.query.source
+                        "contains":req.params.id
                     }
                 }
             },
