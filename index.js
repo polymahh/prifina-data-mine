@@ -75,7 +75,11 @@ connectorRouter.get("/:id",(req,res) => {
     res.json({result:`connecor with id ${req.params.id}`})
 })
 
-app.use(cors())
+
+// we need to change this for better security
+app.use(cors({
+    origin:"*"
+}))
 
 app.use("/data-sources",dataRouter)
 app.use("/data-connectors",connectorRouter)
