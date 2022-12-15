@@ -66,6 +66,27 @@ dataRouter.get("/:id",async (req,res) => {
 
         }).then(result => res.json(result))
 })
+dataRouter.get("/:id/:page",async (req,res) => {
+    console.log(req.params.id)
+    console.log(req.params.page)
+    res.status(200)
+    const query = await notion.databases.query({                    
+        database_id: notionAttributesId,
+        filter: {
+            property: 'Sources',
+            rollup: {
+                any:{
+                    "relation":{
+                        "contains":req.params.id
+                    }
+                }
+            },
+          },
+
+        start_cursor:req.params.page
+
+        }).then(result => res.json(result))
+})
 // this for dynamically getting conectors data
 const connectorRouter = express.Router()
 
