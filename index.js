@@ -8,12 +8,12 @@ const {Client} = require("@notionhq/client")
 
 const notionSecret = process.env.NOTION_SECRET
 const notionDataSourcesId = process.env.NOTION_DATASOURCES_ID
-const notionDataAttributesId = process.env.NOTION_DATAATTRIBUTES_ID
+const notionDataConnectorsId = process.env.NOTION_DATACONNECTORS_ID
 const notionAttributesId = process.env.NOTION_ATTRIBUTES_ID
 
 
 
-if(!notionSecret || !notionDataSourcesId || !notionDataAttributesId || !notionAttributesId){
+if(!notionSecret || !notionDataSourcesId || !notionDataConnectorsId || !notionAttributesId){
     throw Error("Must define NOTION_SECRET and NOTION_DATASOURCES_ID and NOTION_DATAATTRIBUTES_ID in env")
 }
 
@@ -48,7 +48,7 @@ dataRouter.get("/", async (req,res) => {
     
     
 
-
+// call next batch of attributes
 dataRouter.get("/:id/:page",async (req,res) => {
     console.log(req.params.id)
     console.log(req.params.page)
@@ -92,10 +92,12 @@ dataRouter.get("/:id",async (req,res) => {
 // this for dynamically getting conectors data
 const connectorRouter = express.Router()
 
-connectorRouter.get("/",(req,res) => {
+connectorRouter.get("/",async (req,res) => {
     console.log(req.url)
     res.status(200)
-    res.json({result:"sucess connector"})
+        const query = await notion.databases.query({                    
+        database_id: notionDataConnectorsId
+        }).then(result => res.json(result.results.map(item=> item.properties)))
 })
 connectorRouter.get("/:id",(req,res) => {
     console.log(req.url)
